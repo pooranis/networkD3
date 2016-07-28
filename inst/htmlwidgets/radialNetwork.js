@@ -15,7 +15,7 @@ HTMLWidgets.widget({
       .style("height", "100%")
       .append("g")
       .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")"
-                         + " scale("+diameter/800+","+diameter/800+")");
+                         + " scale("+diameter/500+","+diameter/500+")");
     return d3.layout.tree();
 
   },
