@@ -105,7 +105,7 @@ HTMLWidgets.widget({
 
     // node circles
     node.append("circle")
-        .attr("r", 4.5)
+        .attr("r", function(d) { return d.relative_abundance })
         .style("fill", x.options.nodeColour)
         .style("opacity", x.options.opacity)
         .style("stroke", x.options.nodeStroke)
