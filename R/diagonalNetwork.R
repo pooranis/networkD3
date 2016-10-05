@@ -99,7 +99,8 @@ diagonalNetwork <- function(
                           textColour = "#111",
                           opacity = 0.9,
                           margin = NULL,
-                          linkType = "diagonal")
+                          linkType = "diagonal",
+                          textRotate = 0)
 {
     # validate input
     if (!is.list(List))
@@ -120,7 +121,8 @@ diagonalNetwork <- function(
         textColour = textColour,
         margin = margin,
         opacity = opacity,
-        linkType = linkType
+        linkType = linkType,
+        textRotate = textRotate
     )
 
     # create widget
