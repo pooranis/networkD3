@@ -98,7 +98,8 @@ diagonalNetwork <- function(
                           nodeStroke = "steelblue",
                           textColour = "#111",
                           opacity = 0.9,
-                          margin = NULL)
+                          margin = NULL,
+                          linkType = "diagonal")
 {
     # validate input
     if (!is.list(List))
@@ -118,7 +119,8 @@ diagonalNetwork <- function(
         nodeStroke = nodeStroke,
         textColour = textColour,
         margin = margin,
-        opacity = opacity
+        opacity = opacity,
+        linkType = linkType
     )
 
     # create widget
