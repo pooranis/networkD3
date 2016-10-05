@@ -174,7 +174,7 @@ HTMLWidgets.widget({
     function mouseout() {
       d3.select(this).select("circle").transition()
         .duration(750)
-        .attr("r", 4.5);
+        .attr("r", function(d) { return d.relative_abundance });
         
       d3.select(this).select("text").transition()
         .duration(750)
