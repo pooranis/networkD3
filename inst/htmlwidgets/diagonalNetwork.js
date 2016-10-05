@@ -102,7 +102,7 @@ HTMLWidgets.widget({
 
     // node circles
     node.append("circle")
-        .attr("r", function(d) { return d.relative_abundance })
+        .attr("r", function(d) { return d.nodesize })
         .style("fill", x.options.nodeColour)
         .style("opacity", x.options.opacity)
         .style("stroke", x.options.nodeStroke)
@@ -174,7 +174,7 @@ HTMLWidgets.widget({
     function mouseout() {
       d3.select(this).select("circle").transition()
         .duration(750)
-        .attr("r", function(d) { return d.relative_abundance });
+        .attr("r", function(d) { return d.nodesize });
         
       d3.select(this).select("text").transition()
         .duration(750)
