@@ -122,6 +122,7 @@ HTMLWidgets.widget({
         .attr("text-anchor", function(d) { 
           return d.children || d._children ? "end" : "start";
         })
+        .attr("transform", "rotate(" + x.options.textRotate + ")")
         .style("font", x.options.fontSize + "px " + x.options.fontFamily)
         .style("opacity", x.options.opacity)
         .style("fill", x.options.textColour)
