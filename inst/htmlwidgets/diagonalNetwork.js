@@ -87,8 +87,13 @@ HTMLWidgets.widget({
       .style("stroke", x.options.linkColour)
       .style("opacity", "0.55")
       .style("stroke-width", "1.5px")
-      .attr("d", diagonal);
+//      .attr("d", diagonal);
 
+       link.attr("d", function(d, i) {
+          return "M" + d.source.y + "," + d.source.x
+            + "V" + d.target.x + "H" + d.target.y;
+        });
+    
     // draw nodes
     var node = svg.selectAll(".node")
       .data(nodes)
