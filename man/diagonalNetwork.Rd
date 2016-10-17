@@ -13,7 +13,8 @@ Mike Bostock: \url{http://bl.ocks.org/mbostock/4339083}.
 diagonalNetwork(List, height = NULL, width = NULL, fontSize = 10,
   fontFamily = "serif", linkColour = "#ccc", nodeColour = "#fff",
   nodeStroke = "steelblue", textColour = "#111", opacity = 0.9,
-  fillopacity = 0.9, margin = NULL, group = NULL)
+  fillopacity = 0.9, margin = NULL, linkType = "diagonal", 
+  textRotate = 0, group = NULL)
 }
 \arguments{
 \item{List}{a hierarchical list object with a root node and children.}
@@ -54,6 +55,10 @@ the positions \code{top}, \code{right}, \code{bottom}, \code{left}
 are valid.  If a single integer is provided, then the value will be
 assigned to the right margin. Set the margin appropriately
 to accomodate long text labels.}
+
+\item{linkType}{character specifying the link type between points. Options are 'elbow' and 'diagonal'.}
+
+\item{textRotate}{numeric degress to rotate text for node text. Default is 0 for horizontal and 65 degrees for vertical.}
 
 \item{group}{character vector of groups associated with nodes.  If specified, along with
 nodeStroke and/or nodeColour, nodes will be colored according to groups.}
