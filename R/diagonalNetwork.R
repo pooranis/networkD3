@@ -98,9 +98,11 @@ diagonalNetwork <- function(
                           nodeStroke = "steelblue",
                           textColour = "#111",
                           opacity = 0.9,
+                          fillopacity = 0.9,
                           margin = NULL,
                           linkType = "diagonal",
-                          textRotate = 0)
+                          textRotate = 0, 
+                          group = NULL)
 {
     # validate input
     if (!is.list(List))
@@ -109,6 +111,19 @@ diagonalNetwork <- function(
     
     margin <- margin_handler(margin)
 
+    if (!is.null(group)) {
+      if (length(nodeColour) != length(group)) {
+        nodeColour = rep(nodeColour[1], length(group))
+      }
+      
+      if (length(nodeStroke) != length(group)) {
+        nodeStroke = rep(nodeStroke[1], length(group))
+      }
+      
+    } else {
+      group = "null"
+    }
+    
     # create options
     options = list(
         height = height,
@@ -121,8 +136,10 @@ diagonalNetwork <- function(
         textColour = textColour,
         margin = margin,
         opacity = opacity,
+        fillopacity = fillopacity,
         linkType = linkType,
-        textRotate = textRotate
+        textRotate = textRotate,
+        group = group
     )
 
     # create widget

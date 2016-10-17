@@ -19,11 +19,11 @@ HTMLWidgets.widget({
     /*
     var s = d3.select(el).selectAll("svg");
     s.attr("width", width).attr("height", height);
-    
+
     var margin = {top: 20, right: 20, bottom: 20, left: 20};
     width = width - margin.right - margin.left;
     height = height - margin.top - margin.bottom;
-    
+
     tree.size([height, width]);
     var svg = d3.select(el).selectAll("svg").select("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -36,12 +36,12 @@ HTMLWidgets.widget({
     // JSON array with the d3Tree root data
 
     var s = d3.select(el).selectAll("svg");
-   
+
     // when re-rendering the svg, the viewBox attribute set in the code below, will
-    // be affected by the previously set viewBox. This line ensures, that the 
-    // viewBox will always be calculated right. 
+    // be affected by the previously set viewBox. This line ensures, that the
+    // viewBox will always be calculated right.
     s.attr("viewBox", null);
-    
+
     // margin handling
     //   set our default margin to be 20
     //   will override with x.options.margin if provided
@@ -56,11 +56,11 @@ HTMLWidgets.widget({
       // commenting this out since not correct
       // s.style(["margin",ky].join("-"), margin[ky]);
     });
-      
-    
+
+
     width = s.node().getBoundingClientRect().width - margin.right - margin.left;
     height = s.node().getBoundingClientRect().height - margin.top - margin.bottom;
-    
+
     //added Math.max(1, ...) to avoid NaN values when dealing with nodes of depth 0.
     tree.size([height, width])
       .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / Math.max(1, a.depth); });
@@ -94,14 +94,29 @@ HTMLWidgets.widget({
             + "V" + d.target.x + "H" + d.target.y;
         });
   } else {
-      link.attr("d", diagonal); 
+      link.attr("d", diagonal);
   }
+
+  console.log(x.options.group)
+
+  var ncolor;
+  var scolor;
+
+  if (x.options.group != "null") {
+    ncolor = d3.scale.ordinal()
+      .domain(x.options.group)
+      .range(x.options.nodeColour);
+    scolor = d3.scale.ordinal()
+      .domain(x.options.group)
+      .range(x.options.nodeStroke);
+  }
+
     // draw nodes
     var node = svg.selectAll(".node")
       .data(nodes)
       .enter().append("g")
       .attr("class", "node")
-      .attr("transform", function(d) { 
+      .attr("transform", function(d) {
         return "translate(" + d.y + "," + d.x + ")";
       })
       .on("mouseover", mouseover)
@@ -110,16 +125,29 @@ HTMLWidgets.widget({
     // node circles
     node.append("circle")
         .attr("r", function(d) { return d.nodesize })
-        .style("fill", x.options.nodeColour)
-        .style("opacity", x.options.opacity)
-        .style("stroke", x.options.nodeStroke)
-        .style("stroke-width", "1.5px");
+        .style("fill-opacity", x.options.fillopacity)
+        .style("stroke", function(d) {
+          if (x.options.group != "null") {
+            return scolor(d.group);
+          } else {
+            return x.options.nodeStroke;
+          }
+       })
+        .style("stroke-width", "1.5px")
+        .style("fill", function(d) {
+          if (x.options.group != "null") {
+            return ncolor(d.group);
+          } else {
+            return x.options.nodeColour;
+          }
+       });
+
 
     // node text
     node.append("text")
         .attr("dx", function(d) { return d.children ? -8 : 8; })
         .attr("dy", ".31em")
-        .attr("text-anchor", function(d) { 
+        .attr("text-anchor", function(d) {
           return d.children || d._children ? "end" : "start";
         })
         .attr("transform", "rotate(" + x.options.textRotate + ")")
@@ -127,7 +155,7 @@ HTMLWidgets.widget({
         .style("opacity", x.options.opacity)
         .style("fill", x.options.textColour)
         .text(function(d) { return d.name; });
-        
+
     // adjust viewBox to fit the bounds of our tree
     s.attr(
         "viewBox",
@@ -163,14 +191,14 @@ HTMLWidgets.widget({
             })
           ) + margin.top + margin.bottom
         ].join(",")
-      );        
+      );
 
     // mouseover event handler
     function mouseover() {
       d3.select(this).select("circle").transition()
         .duration(750)
         .attr("r", 9);
-        
+
       d3.select(this).select("text").transition()
         .duration(750)
         .style("stroke-width", ".5px")
@@ -183,7 +211,7 @@ HTMLWidgets.widget({
       d3.select(this).select("circle").transition()
         .duration(750)
         .attr("r", function(d) { return d.nodesize });
-        
+
       d3.select(this).select("text").transition()
         .duration(750)
         .style("font", x.options.fontSize + "px " + x.options.fontFamily)
