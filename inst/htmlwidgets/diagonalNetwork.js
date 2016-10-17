@@ -97,8 +97,6 @@ HTMLWidgets.widget({
       link.attr("d", diagonal);
   }
 
-  console.log(x.options.group)
-
   var ncolor;
   var scolor;
 
@@ -125,6 +123,7 @@ HTMLWidgets.widget({
     // node circles
     node.append("circle")
         .attr("r", function(d) { return d.nodesize })
+        .style("opacity", x.options.opacity)
         .style("fill-opacity", x.options.fillopacity)
         .style("stroke", function(d) {
           if (x.options.group != "null") {
