@@ -13,7 +13,7 @@ Mike Bostock: \url{http://bl.ocks.org/mbostock/4339083}.
 diagonalNetwork(List, height = NULL, width = NULL, fontSize = 10,
   fontFamily = "serif", linkColour = "#ccc", nodeColour = "#fff",
   nodeStroke = "steelblue", textColour = "#111", opacity = 0.9,
-  margin = NULL)
+  fillopacity = 0.9, margin = NULL, group = NULL)
 }
 \arguments{
 \item{List}{a hierarchical list object with a root node and children.}
@@ -31,11 +31,13 @@ diagonalNetwork(List, height = NULL, width = NULL, fontSize = 10,
 \item{linkColour}{character string specifying the colour you want the link
 lines to be. Multiple formats supported (e.g. hexadecimal).}
 
-\item{nodeColour}{character string specifying the colour you want the node
-circles to be. Multiple formats supported (e.g. hexadecimal).}
+\item{nodeColour}{character string or vector specifying the colour you want the node
+circles to be. Multiple formats supported (e.g. hexadecimal). If vector, nodes will
+be colored according to group.}
 
 \item{nodeStroke}{character string specifying the colour you want the node
-perimeter to be. Multiple formats supported (e.g. hexadecimal).}
+perimeter to be. Multiple formats supported (e.g. hexadecimal).  If vector, node
+perimeters will be colored according to group.}
 
 \item{textColour}{character string specifying the colour you want the text to
 be before they are clicked. Multiple formats supported (e.g. hexadecimal).}
@@ -43,12 +45,18 @@ be before they are clicked. Multiple formats supported (e.g. hexadecimal).}
 \item{opacity}{numeric value of the proportion opaque you would like the
 graph elements to be.}
 
+\item{fillopacity}{numeric value of the proportion opaque you would like the
+node circles to be.}
+
 \item{margin}{an integer or a named \code{list}/\code{vector} of integers
 for the plot margins. If using a named \code{list}/\code{vector},
 the positions \code{top}, \code{right}, \code{bottom}, \code{left}
 are valid.  If a single integer is provided, then the value will be
 assigned to the right margin. Set the margin appropriately
 to accomodate long text labels.}
+
+\item{group}{character vector of groups associated with nodes.  If specified, along with
+nodeStroke and/or nodeColour, nodes will be colored according to groups.}
 }
 \description{
 Create Reingold-Tilford Tree network diagrams.
