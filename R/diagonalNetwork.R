@@ -91,11 +91,13 @@ diagonalNetwork <- function(
                           List,
                           height = NULL,
                           width = NULL,
+                          nodeSize = 4.5,
                           fontSize = 10,
                           fontFamily = "serif",
                           linkColour = "#ccc",
                           nodeColour = "#fff",
                           nodeStroke = "steelblue",
+                          strokeWidth = 1.5,
                           textColour = "#111",
                           opacity = 0.9,
                           fillopacity = 0.9,
@@ -124,15 +126,19 @@ diagonalNetwork <- function(
       group = "null"
     }
     
+    strokeWidth = paste0(strokeWidth, "px")
+
     # create options
     options = list(
         height = height,
         width = width,
+        nodeSize = nodeSize,
         fontSize = fontSize,
         fontFamily = fontFamily,
         linkColour = linkColour,
         nodeColour = nodeColour,
         nodeStroke = nodeStroke,
+        strokeWidth = strokeWidth,
         textColour = textColour,
         margin = margin,
         opacity = opacity,

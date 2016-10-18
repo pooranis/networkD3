@@ -86,7 +86,7 @@ HTMLWidgets.widget({
       .style("fill", "none")
       .style("stroke", x.options.linkColour)
       .style("opacity", "0.55")
-      .style("stroke-width", "1.5px")
+      .style("stroke-width", x.options.strokeWidth)
 
   if (x.options.linkType == "elbow") {
        link.attr("d", function(d, i) {
@@ -122,7 +122,13 @@ HTMLWidgets.widget({
 
     // node circles
     node.append("circle")
-        .attr("r", function(d) { return d.nodesize })
+        .attr("r", function(d) {
+          if (d.nodesize != null) {
+            return d.nodesize;
+          } else {
+              return x.options.nodeSize;
+          }
+        })
         .style("opacity", x.options.opacity)
         .style("fill-opacity", x.options.fillopacity)
         .style("stroke", function(d) {
@@ -132,7 +138,7 @@ HTMLWidgets.widget({
             return x.options.nodeStroke;
           }
        })
-        .style("stroke-width", "1.5px")
+        .style("stroke-width", x.options.strokeWidth)
         .style("fill", function(d) {
           if (x.options.group != "null") {
             return ncolor(d.group);

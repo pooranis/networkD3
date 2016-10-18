@@ -10,11 +10,11 @@ IEEE Transactions on Software Engineering, SE-7(2), 223-228.
 Mike Bostock: \url{http://bl.ocks.org/mbostock/4339083}.
 }
 \usage{
-diagonalNetwork(List, height = NULL, width = NULL, fontSize = 10,
-  fontFamily = "serif", linkColour = "#ccc", nodeColour = "#fff",
-  nodeStroke = "steelblue", textColour = "#111", opacity = 0.9,
-  fillopacity = 0.9, margin = NULL, linkType = "diagonal", 
-  textRotate = 0, group = NULL)
+diagonalNetwork(List, height = NULL, width = NULL, nodeSize = 4.5,
+  fontSize = 10, fontFamily = "serif", linkColour = "#ccc",
+  nodeColour = "#fff", nodeStroke = "steelblue", strokeWidth = 1.5, 
+  textColour = "#111", opacity = 0.9, fillopacity = 0.9, margin = NULL, 
+  linkType = "diagonal", textRotate = 0, group = NULL)
 }
 \arguments{
 \item{List}{a hierarchical list object with a root node and children.}
@@ -24,6 +24,9 @@ diagonalNetwork(List, height = NULL, width = NULL, fontSize = 10,
 
 \item{width}{numeric width for the network graph's frame area in pixels (if
 \code{NULL} then width is automatically determined based on context)}
+
+\item{nodeSize}{numeric radius of nodes.  If nodesize variable is specified
+in List, then this value is ignored.}
 
 \item{fontSize}{numeric font size in pixels for the node text labels.}
 
@@ -39,6 +42,8 @@ be colored according to group.}
 \item{nodeStroke}{character string specifying the colour you want the node
 perimeter to be. Multiple formats supported (e.g. hexadecimal).  If vector, node
 perimeters will be colored according to group.}
+
+\item{strokeWidth}{numeric width in px of node perimeter and links.}
 
 \item{textColour}{character string specifying the colour you want the text to
 be before they are clicked. Multiple formats supported (e.g. hexadecimal).}
