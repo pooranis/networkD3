@@ -103,6 +103,8 @@ diagonalNetwork <- function(
                           fillopacity = 0.9,
                           margin = NULL,
                           linkType = "diagonal",
+                          linkStyle = "single",
+                          linkWidth = strokeWidth,
                           textRotate = 0, 
                           group = NULL)
 {
@@ -127,7 +129,7 @@ diagonalNetwork <- function(
     }
     
     strokeWidth = paste0(strokeWidth, "px")
-
+    
     # create options
     options = list(
         height = height,
@@ -144,6 +146,8 @@ diagonalNetwork <- function(
         opacity = opacity,
         fillopacity = fillopacity,
         linkType = linkType,
+        linkStyle = linkStyle,
+        linkWidth = linkWidth,
         textRotate = textRotate,
         group = group
     )

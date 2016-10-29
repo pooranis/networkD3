@@ -14,7 +14,8 @@ diagonalNetwork(List, height = NULL, width = NULL, nodeSize = 4.5,
   fontSize = 10, fontFamily = "serif", linkColour = "#ccc",
   nodeColour = "#fff", nodeStroke = "steelblue", strokeWidth = 1.5, 
   textColour = "#111", opacity = 0.9, fillopacity = 0.9, margin = NULL, 
-  linkType = "diagonal", textRotate = 0, group = NULL)
+  linkType = "diagonal", linkStyle = "single", linkWidth = strokeWidth, 
+  textRotate = 0, group = NULL)
 }
 \arguments{
 \item{List}{a hierarchical list object with a root node and children.}
@@ -39,11 +40,11 @@ lines to be. Multiple formats supported (e.g. hexadecimal).}
 circles to be. Multiple formats supported (e.g. hexadecimal). If vector, nodes will
 be colored according to group.}
 
-\item{nodeStroke}{character string specifying the colour you want the node
+\item{nodeStroke}{character string or vector specifying the colour you want the node
 perimeter to be. Multiple formats supported (e.g. hexadecimal).  If vector, node
 perimeters will be colored according to group.}
 
-\item{strokeWidth}{numeric width in px of node perimeter and links.}
+\item{strokeWidth}{numeric width in px of node perimeter.}
 
 \item{textColour}{character string specifying the colour you want the text to
 be before they are clicked. Multiple formats supported (e.g. hexadecimal).}
@@ -63,7 +64,11 @@ to accomodate long text labels.}
 
 \item{linkType}{character specifying the link type between points. Options are 'elbow' and 'diagonal'.}
 
-\item{textRotate}{numeric degress to rotate text for node text. Default is 0 for horizontal and 65 degrees for vertical.}
+\item{linkStyle}{character specifying the link style between points.  Options are 'single' and double'.}
+
+\item{linkWidth}{numeric width in px of links.  Defaults to strokeWidth.}
+
+\item{textRotate}{numeric degrees to rotate text for node text. Default is 0 for horizontal and 65 degrees for vertical.}
 
 \item{group}{character vector of groups associated with nodes.  If specified, along with
 nodeStroke and/or nodeColour, nodes will be colored according to groups.}

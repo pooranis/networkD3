@@ -65,6 +65,7 @@ HTMLWidgets.widget({
     tree.size([height, width])
       .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / Math.max(1, a.depth); });
 
+
     // select the svg group element and remove existing children
     s.attr("pointer-events", "all").selectAll("*").remove();
     s.append("g")
@@ -80,34 +81,72 @@ HTMLWidgets.widget({
       .projection(function(d) { return [d.y, d.x]; });
 
     // draw links
-    var link = svg.selectAll(".link")
+    var link = svg.append("g");
+
+    link.selectAll(".link")
       .data(links)
       .enter().append("path")
-      .style("fill", "none")
-      .style("stroke", x.options.linkColour)
-      .style("opacity", "0.55")
-      .style("stroke-width", x.options.strokeWidth)
-
-  if (x.options.linkType == "elbow") {
-       link.attr("d", function(d, i) {
-          return "M" + d.source.y + "," + d.source.x
-            + "V" + d.target.x + "H" + d.target.y;
+        .style("fill", "none")
+        .style("stroke", x.options.linkColour)
+//        .style("opacity", x.options.opacity)
+        .style("stroke-width", x.options.linkWidth + 'px')
+        .attr("d", function (d,i) {
+          if (x.options.linkType == "elbow") {
+           return "M" + d.source.y + "," + d.source.x
+             + "V" + d.target.x + "H" + d.target.y;
+           } else {
+             return diagonal(d);
+           }
         });
-  } else {
-      link.attr("d", diagonal);
-  }
 
-  var ncolor;
-  var scolor;
+    if (x.options.linkStyle == "double") {
+      var linkseparator = svg.append("g");
 
-  if (x.options.group != "null") {
-    ncolor = d3.scale.ordinal()
-      .domain(x.options.group)
-      .range(x.options.nodeColour);
-    scolor = d3.scale.ordinal()
-      .domain(x.options.group)
-      .range(x.options.nodeStroke);
-  }
+      linkseparator.selectAll(".link")
+        .data(links)
+        .enter().append("path")
+          .style("fill", "none")
+          .style("stroke", "#fff")
+//          .style("opacity", x.options.opacity)
+          .style("stroke-width", (1/3)*x.options.linkWidth + 'px')
+          .attr("d", function (d,i) {
+            if (x.options.linkType == "elbow") {
+             return "M" + d.source.y + "," + d.source.x
+               + "V" + d.target.x + "H" + d.target.y;
+             } else {
+               return diagonal(d);
+             }
+          });
+      }
+
+
+    var ncolor;
+    var scolor;
+
+    if (x.options.group != "null") {
+      ncolor = d3.scale.ordinal()
+        .domain(x.options.group)
+        .range(x.options.nodeColour);
+      scolor = d3.scale.ordinal()
+        .domain(x.options.group)
+        .range(x.options.nodeStroke);
+    }
+
+    var nodesize = function (d) {
+      if (d.nodesize != null) {
+        return d.nodesize;
+      } else {
+          return x.options.nodeSize;
+      }
+    }
+
+    var maxnodesize = function (d) {
+      if (d.nodesize != null) {
+        return d3.max([d.nodesize, 10]);
+      } else {
+          return x.options.nodeSize;
+      }
+    }
 
     // draw nodes
     var node = svg.selectAll(".node")
@@ -122,14 +161,8 @@ HTMLWidgets.widget({
 
     // node circles
     node.append("circle")
-        .attr("r", function(d) {
-          if (d.nodesize != null) {
-            return d.nodesize;
-          } else {
-              return x.options.nodeSize;
-          }
-        })
-        .style("opacity", x.options.opacity)
+        .attr("r", nodesize)
+//        .style("opacity", x.options.opacity)
         .style("fill-opacity", x.options.fillopacity)
         .style("stroke", function(d) {
           if (x.options.group != "null") {
@@ -201,11 +234,12 @@ HTMLWidgets.widget({
     // mouseover event handler
     function mouseover() {
       d3.select(this).select("circle").transition()
-        .duration(750)
-        .attr("r", 9);
+        .duration(550)
+        .style("fill-opacity", 1)
+        .attr("r", maxnodesize);
 
       d3.select(this).select("text").transition()
-        .duration(750)
+        .duration(550)
         .style("stroke-width", ".5px")
         .style("font", "25px " + x.options.fontFamily)
         .style("opacity", 1);
@@ -214,11 +248,12 @@ HTMLWidgets.widget({
     // mouseout event handler
     function mouseout() {
       d3.select(this).select("circle").transition()
-        .duration(750)
-        .attr("r", function(d) { return d.nodesize });
+        .duration(550)
+        .style("fill-opacity", x.options.fillopacity)
+        .attr("r", nodesize);
 
       d3.select(this).select("text").transition()
-        .duration(750)
+        .duration(550)
         .style("font", x.options.fontSize + "px " + x.options.fontFamily)
         .style("opacity", x.options.opacity);
     }
