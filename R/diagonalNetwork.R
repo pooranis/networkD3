@@ -127,7 +127,7 @@ diagonalNetwork <- function(
     } else {
       group = "null"
     }
-    
+    linkWidth <- linkWidth
     strokeWidth = paste0(strokeWidth, "px")
     
     # create options
