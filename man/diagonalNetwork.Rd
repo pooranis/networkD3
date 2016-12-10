@@ -11,10 +11,10 @@ Mike Bostock: \url{http://bl.ocks.org/mbostock/4339083}.
 }
 \usage{
 diagonalNetwork(List, height = NULL, width = NULL, nodeSize = 4.5,
-  fontSize = 10, fontFamily = "serif", linkColour = "#ccc",
-  nodeColour = "#fff", nodeStroke = "steelblue", strokeWidth = 1.5, 
-  textColour = "#111", opacity = 0.9, fillopacity = 0.9, margin = NULL, 
-  linkType = "diagonal", linkStyle = "single", linkWidth = strokeWidth, 
+  fontSize = 10, fontFamily = "serif", maxfontSize = 25, linkColour = "#ccc",
+  nodeColour = "#fff", nodeStroke = "steelblue", strokeWidth = 1.5,
+  textColour = "#111", opacity = 0.9, fillopacity = 0.9, margin = NULL,
+  linkType = "diagonal", linkStyle = "single", linkWidth = strokeWidth,
   textRotate = 0, group = NULL)
 }
 \arguments{
@@ -32,6 +32,9 @@ in List, then this value is ignored.}
 \item{fontSize}{numeric font size in pixels for the node text labels.}
 
 \item{fontFamily}{font family for the node text labels.}
+
+\item{maxfontSize}{maximum numeric font size in pixels for the node text labels
+when mousing over node.}
 
 \item{linkColour}{character string specifying the colour you want the link
 lines to be. Multiple formats supported (e.g. hexadecimal).}
@@ -83,7 +86,7 @@ Create Reingold-Tilford Tree network diagrams.
 # Create URL. paste0 used purely to keep within line width.
 URL <- paste0("https://cdn.rawgit.com/christophergandrud/networkD3/",
               "master/JSONdata//flare.json")
-              
+
 ## Convert to list format
 Flare <- jsonlite::fromJSON(URL, simplifyDataFrame = FALSE)
 

@@ -32,7 +32,7 @@
 #' # Create URL. paste0 used purely to keep within line width.
 #' URL <- paste0("https://cdn.rawgit.com/christophergandrud/networkD3/",
 #'               "master/JSONdata//flare.json")
-#'               
+#'
 #' ## Convert to list format
 #' Flare <- jsonlite::fromJSON(URL, simplifyDataFrame = FALSE)
 #'
@@ -105,31 +105,35 @@ diagonalNetwork <- function(
                           linkType = "diagonal",
                           linkStyle = "single",
                           linkWidth = strokeWidth,
-                          textRotate = 0, 
-                          group = NULL)
+                          textRotate = 0,
+                          group = NULL,
+                          maxfontSize = 25)
 {
     # validate input
     if (!is.list(List))
       stop("List must be a list object.")
     root <- List
-    
+    ml <- margin$left
+    mr <- margin$right
+    margin$left <- mr
+    margin$right <- ml
     margin <- margin_handler(margin)
 
     if (!is.null(group)) {
       if (length(nodeColour) != length(group)) {
         nodeColour = rep(nodeColour[1], length(group))
       }
-      
+
       if (length(nodeStroke) != length(group)) {
         nodeStroke = rep(nodeStroke[1], length(group))
       }
-      
+
     } else {
       group = "null"
     }
     linkWidth <- linkWidth
     strokeWidth = paste0(strokeWidth, "px")
-    
+
     # create options
     options = list(
         height = height,
@@ -149,7 +153,8 @@ diagonalNetwork <- function(
         linkStyle = linkStyle,
         linkWidth = linkWidth,
         textRotate = textRotate,
-        group = group
+        group = group,
+        maxfontSize = maxfontSize
     )
 
     # create widget

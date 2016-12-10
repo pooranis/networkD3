@@ -241,7 +241,7 @@ HTMLWidgets.widget({
       d3.select(this).select("text").transition()
         .duration(550)
         .style("stroke-width", ".5px")
-        .style("font", "25px " + x.options.fontFamily)
+        .style("font", x.options.maxfontSize + "px " + x.options.fontFamily)
         .style("opacity", 1);
     }
 
