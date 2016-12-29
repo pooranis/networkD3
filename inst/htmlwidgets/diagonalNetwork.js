@@ -236,7 +236,15 @@ HTMLWidgets.widget({
       d3.select(this).select("circle").transition()
         .duration(550)
         .style("fill-opacity", 1)
+        .style("fill", function(d) {
+          if (x.options.group != "null") {
+            return scolor(d.group)
+          } else {
+            return x.options.nodeStroke
+          }
+        })
         .attr("r", maxnodesize);
+
 
       d3.select(this).select("text").transition()
         .duration(550)
@@ -250,6 +258,13 @@ HTMLWidgets.widget({
       d3.select(this).select("circle").transition()
         .duration(550)
         .style("fill-opacity", x.options.fillopacity)
+        .style("fill", function(d) {
+          if (x.options.group != "null") {
+            return ncolor(d.group)
+          } else {
+            return x.options.nodeColour
+          }
+        })
         .attr("r", nodesize);
 
       d3.select(this).select("text").transition()
